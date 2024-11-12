@@ -59,7 +59,7 @@ signInButton.addEventListener('click', (event) => {
     .then((userCredential) => {
         showMessage('Login is successful', 'signInMessage');
         localStorage.setItem('loggedInUserId', userCredential.user.uid);
-        window.location.href = 'index.html';
+        window.location.href = 'feed.html';
     })
     .catch((error) => {
         const errorCode = error.code;
