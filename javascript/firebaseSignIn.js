@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getFirestore();
-
+/*
 // Sign Up Functionality
 const signUpButton = document.getElementById('submitSignUp');
 signUpButton.addEventListener('click', (event) => {
@@ -46,8 +46,8 @@ signUpButton.addEventListener('click', (event) => {
         console.error("Error during sign-up: ", error);
         showMessage("Error during sign-up.", "errorMessage");
     });
-});
-/*
+});*/
+
 // Sign In Functionality
 const signInButton = document.getElementById('submitSignIn');
 signInButton.addEventListener('click', (event) => {
@@ -69,7 +69,7 @@ signInButton.addEventListener('click', (event) => {
             showMessage('Error logging in', 'signInMessage');
         }
     });
-});*/
+});
 
 // Function to Display Messages
 function showMessage(message, divId) {

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nature Social - Sign In</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="javascript/firebaseSignIn.js"></script>
 </head>
 <body>
 
@@ -19,14 +20,18 @@
 
     <div class="container">
         <h2>Sign In</h2>
-        <form>
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username"><br><br>
+        <form action="" method="post">
+            <label for="email">Email:</label><br>
+            <input type="email" id="emailSignIn" name="email" placeholder="Your Email"><br><br>            
+
             <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password"><br><br>
-            <button type="submit">Sign In</button>
+            <input type="password" id="passwordSignIn" name="password" placeholder="Your Password"><br><br>
+
+            <button id="submitSignIn" type="button">Submit</button>
         </form>
     </div>
+    <div id="signInMessage" style="display:none; color: red;"></div>
+
 
 </body>
 </html>
