@@ -49,32 +49,34 @@ async function createPost(title, description) {
 }
 
 // Add event listener for form submission
-document.getElementById('submitPost').addEventListener('click', async () => {
-  const title = document.getElementById('postTitle').value;
-  const description = document.getElementById('postDescription').value;
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('submitPost').addEventListener('click', async () => {
+    const title = document.getElementById('postTitle').value;
+    const description = document.getElementById('postDescription').value;
 
-  // Clear feedback message
-  const postMessage = document.getElementById('postMessage');
-  postMessage.style.display = 'none';
+    // Clear feedback message
+    const postMessage = document.getElementById('postMessage');
+    postMessage.style.display = 'none';
 
-  if (!title || !description) {
-    postMessage.style.color = 'red';
-    postMessage.style.display = 'block';
-    postMessage.textContent = 'Both fields are required!';
-    return;
-  }
+    if (!title || !description) {
+      postMessage.style.color = 'red';
+      postMessage.style.display = 'block';
+      postMessage.textContent = 'Both fields are required!';
+      return;
+    }
 
-  try {
-    await createPost(title, description);
-    postMessage.style.color = 'green';
-    postMessage.style.display = 'block';
-    postMessage.textContent = 'Post created successfully!';
-    document.getElementById('createPostForm').reset();
-  } catch (error) {
-    postMessage.style.color = 'red';
-    postMessage.style.display = 'block';
-    postMessage.textContent = `Error creating post: ${error.message}`;
-  }
+    try {
+      await createPost(title, description);
+      postMessage.style.color = 'green';
+      postMessage.style.display = 'block';
+      postMessage.textContent = 'Post created successfully!';
+      document.getElementById('createPostForm').reset();
+    } catch (error) {
+      postMessage.style.color = 'red';
+      postMessage.style.display = 'block';
+      postMessage.textContent = `Error creating post: ${error.message}`;
+    }
+  });
 });
 
 // Like Post Function
