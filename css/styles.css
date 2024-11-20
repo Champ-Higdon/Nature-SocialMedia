@@ -2,10 +2,15 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('../images/camo-background.jpg'); /* hunting camouflage image */
+    background-image: url('../images/background.jpg'); /* background image */
     background-size: cover;
     background-attachment: fixed;
     color: #333;
+
+    /* background-image:'Images/Background.jpeg';
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
 }
 
 header {
@@ -15,6 +20,23 @@ header {
     text-align: center;
     font-size: 2rem;
     box-shadow: 0 4px 2px -2px gray;
+}
+
+button{
+    border-radius: 5px;
+
+}
+
+button:hover{
+    background-color: #4CAF50;
+    color: #FFFFFF;
+    border: none;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+input{
+    border-radius: 5px;
 }
 
 nav {
@@ -106,3 +128,12 @@ h2 {
 .sign-in-section button:hover {
     background-color: #45a049;
 }
+
+.background {
+    background-image: url('Images/Background.jpeg');
+    height: 500px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
