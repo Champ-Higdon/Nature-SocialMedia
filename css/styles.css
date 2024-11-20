@@ -41,21 +41,22 @@ input{
 
 nav {
     display: flex;
-    justify-content: center;
-    background-color: #333;
+    justify-content: flex-end; /* Align links to the right */
+    background-color: transparent; /* Make the background transparent */
     padding: 0.5rem;
 }
 
 nav a {
     color: white;
     padding: 1rem;
-    text-decoration: none;
+    text-decoration: none; /* Remove underline by default */
     font-size: 1.2rem;
 }
 
 nav a:hover {
-    background-color: #4CAF50;
+    text-decoration: underline; /* Add underline on hover */
 }
+
 
 .container {
     padding: 2rem;
