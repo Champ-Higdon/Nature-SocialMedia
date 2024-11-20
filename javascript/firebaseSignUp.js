@@ -36,6 +36,8 @@ signUpButton.addEventListener('click', (event) => {
         setDoc(doc(db, 'users', user.uid), userData)
         .then(() => {
             showMessage("User signed up successfully!", "confirmationMessage");
+            localStorage.setItem('loggedInUserId', userCredential.user.uid);
+            window.location.href = 'feed.html';
         })
         .catch((error) => {
             console.error("Error saving user data: ", error);
