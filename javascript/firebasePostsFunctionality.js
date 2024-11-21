@@ -22,14 +22,15 @@ const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getFirestore();
 
-// Post Creation Function
-async function createPost(title, description) {
+// Post Creation Function with Image and Location
+async function createPost(title, description, imageFile, location) {
   const user = auth.currentUser;
   if (!user) {
     console.error('You need to be logged in to create a post');
     return;
   }
 
+  // Initialize post data
   const postData = {
     title,
     description,
@@ -37,9 +38,28 @@ async function createPost(title, description) {
     authorEmail: user.email,
     likes: 0,
     comments: [],
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    location: location || '',  // Optional location
   };
 
+  // Upload image if provided
+  if (imageFile) {
+    const storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child(`post_images/${imageFile.name}`);
+    
+    try {
+      // Upload the image to Firebase Storage
+      const uploadTask = await imageRef.put(imageFile);
+      // Get the image URL
+      const imageURL = await uploadTask.ref.getDownloadURL();
+      postData.imageUrl = imageURL;  // Add image URL to post data
+    } catch (error) {
+      console.error('Error uploading image:', error.message);
+      return;
+    }
+  }
+
+  // Save post data to Firestore
   try {
     const postRef = await db.collection('posts').add(postData);
     console.log('Post created with ID:', postRef.id);
@@ -53,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('submitPost').addEventListener('click', async () => {
     const title = document.getElementById('postTitle').value;
     const description = document.getElementById('postDescription').value;
+    const location = document.getElementById('postLocation').value; // Get location
+    const imageFile = document.getElementById('postImage').files[0]; // Get image file (if any)
 
     // Clear feedback message
     const postMessage = document.getElementById('postMessage');
@@ -61,12 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!title || !description) {
       postMessage.style.color = 'red';
       postMessage.style.display = 'block';
-      postMessage.textContent = 'Both fields are required!';
+      postMessage.textContent = 'Both title and description are required!';
       return;
     }
 
     try {
-      await createPost(title, description);
+      await createPost(title, description, imageFile, location);
       postMessage.style.color = 'green';
       postMessage.style.display = 'block';
       postMessage.textContent = 'Post created successfully!';
@@ -78,30 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-
-// Like Post Function
-async function likePost(postId) {
-  const user = auth.currentUser;
-  if (!user) {
-    console.error('You need to be logged in to like a post');
-    return;
-  }
-
-  try {
-    const postRef = db.collection('posts').doc(postId);
-    const postSnapshot = await postRef.get();
-    if (postSnapshot.exists) {
-      const post = postSnapshot.data();
-      const likes = post.likes;
-      await postRef.update({ likes: likes + 1 });
-      console.log(`Post ${postId} liked`);
-    } else {
-      console.error('Post not found');
-    }
-  } catch (error) {
-    console.error('Error liking post:', error.message);
-  }
-}
 
 // Comment on Post Function
 async function commentOnPost(postId, commentText) {
@@ -135,19 +133,3 @@ auth.onAuthStateChanged(user => {
     console.log('User logged out');
   }
 });
-
-// // Example Usage:
-// // Sign up a new user
-// signUpUser('user@example.com', 'password123');
-
-// // Sign in an existing user
-// signInUser('user@example.com', 'password123');
-
-// // Create a new post
-// createPost('My Hiking Adventure', 'Had an amazing hike in the mountains!');
-
-// // Like a post (provide the postId after creating one)
-// likePost('post-id-here');
-
-// // Comment on a post (provide the postId and comment text)
-// commentOnPost('post-id-here', 'Looks like an amazing adventure!');

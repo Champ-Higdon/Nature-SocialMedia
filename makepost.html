@@ -20,10 +20,16 @@
     <h2>Create a New Post</h2>
     <form id="createPostForm" action="#" method="post">
       <label for="postTitle">Post Title:</label><br>
-      <input type="text" id="postTitle" name="postTitle" placeholder="Enter your post title"><br><br>
+      <input type="text" id="postTitle" name="postTitle" placeholder="Enter your post title" required><br><br>
 
       <label for="postDescription">Post Description:</label><br>
-      <textarea id="postDescription" name="postDescription" rows="5" placeholder="Write your post here..."></textarea><br><br>
+      <textarea id="postDescription" name="postDescription" rows="5" placeholder="Write your post here..." required></textarea><br><br>
+
+      <label for="postLocation">Location (optional):</label><br>
+      <input type="text" id="postLocation" placeholder="Enter location here"><br><br>
+      
+      <label for="postImage">Upload Image (optional):</label><br>
+      <input type="file" id="postImage"><br><br>
 
       <button id="submitPost" type="button">Submit Post</button>
     </form>
