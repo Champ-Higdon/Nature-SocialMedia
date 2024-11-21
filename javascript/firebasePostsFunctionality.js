@@ -1,3 +1,4 @@
+//firebasePostFunctionality.js
 // Import the Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
@@ -46,6 +47,37 @@ async function createPost(title, description) {
     console.error('Error creating post:', error.message);
   }
 }
+
+// Add event listener for form submission
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('submitPost').addEventListener('click', async () => {
+    const title = document.getElementById('postTitle').value;
+    const description = document.getElementById('postDescription').value;
+
+    // Clear feedback message
+    const postMessage = document.getElementById('postMessage');
+    postMessage.style.display = 'none';
+
+    if (!title || !description) {
+      postMessage.style.color = 'red';
+      postMessage.style.display = 'block';
+      postMessage.textContent = 'Both fields are required!';
+      return;
+    }
+
+    try {
+      await createPost(title, description);
+      postMessage.style.color = 'green';
+      postMessage.style.display = 'block';
+      postMessage.textContent = 'Post created successfully!';
+      document.getElementById('createPostForm').reset();
+    } catch (error) {
+      postMessage.style.color = 'red';
+      postMessage.style.display = 'block';
+      postMessage.textContent = `Error creating post: ${error.message}`;
+    }
+  });
+});
 
 // Like Post Function
 async function likePost(postId) {

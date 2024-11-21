@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nature Social - Create Post</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="javascript/firebasePostFunctionality.js"></script>
+</head>
+<body>
+  <!-- Header and Navigation -->
+  <header>Nature Social - Create Post</header>
+  <nav>
+    <a href="feed.html">Back to Feed</a>
+    <a href="index.html">Switch Account</a>
+</nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2>Create a New Post</h2>
+    <form id="createPostForm" action="#" method="post">
+      <label for="postTitle">Post Title:</label><br>
+      <input type="text" id="postTitle" name="postTitle" placeholder="Enter your post title"><br><br>
+
+      <label for="postDescription">Post Description:</label><br>
+      <textarea id="postDescription" name="postDescription" rows="5" placeholder="Write your post here..."></textarea><br><br>
+
+      <button id="submitPost" type="button">Submit Post</button>
+    </form>
+  </div>
+  <div id="postMessage" style="display:none; color: green;"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Nature Social</p>
+  </footer>
+
+  <!--<script>
+    // Add event listener for form submission
+    document.getElementById('submitPost').addEventListener('click', async () => {
+      const title = document.getElementById('postTitle').value;
+      const description = document.getElementById('postDescription').value;
+
+      // Clear feedback message
+      const postMessage = document.getElementById('postMessage');
+      postMessage.style.display = 'none';
+
+      if (!title || !description) {
+        postMessage.style.color = 'red';
+        postMessage.style.display = 'block';
+        postMessage.textContent = 'Both fields are required!';
+        return;
+      }
+
+      try {
+        await createPost(title, description);
+        postMessage.style.color = 'green';
+        postMessage.style.display = 'block';
+        postMessage.textContent = 'Post created successfully!';
+        document.getElementById('createPostForm').reset();
+      } catch (error) {
+        postMessage.style.color = 'red';
+        postMessage.style.display = 'block';
+        postMessage.textContent = `Error creating post: ${error.message}`;
+      }
+    });
+  </script>-->
+</body>
+</html>
