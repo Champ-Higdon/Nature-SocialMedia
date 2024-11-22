@@ -37,7 +37,7 @@ signUpButton.addEventListener('click', (event) => {
         .then(() => {
             showMessage("User signed up successfully!", "confirmationMessage");
             localStorage.setItem('loggedInUserId', userCredential.user.uid);
-            window.location.href = 'feed.html';
+            window.location.href = 'fakeBilling.html';
         })
         .catch((error) => {
             console.error("Error saving user data: ", error);

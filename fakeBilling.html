@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature Social - Billing</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="javascript/fakeBilling.js"></script>
+</head>
+<body>
+
+    <!-- Header and Navigation -->
+    <header>Nature Social - Billing Information</header>
+    <nav>
+        <a href="index.html">Back to Home</a>
+    </nav>
+
+    <div class="container">
+        <h2>Enter Your Billing Information</h2>
+        <form id="billingForm">
+            <label for="fullName">Full Name: </label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+            <br>
+    
+            <label for="cardNumber">Credit Card Number: </label>
+            <input type="text" id="cardNumber" name="cardNumber" placeholder="Enter your card number" required>
+            <br>
+    
+            <label for="expiryDate">Expiration Date: </label>
+            <input type="month" id="expiryDate" name="expiryDate" required>
+            <br>
+    
+            <label for="cvv">CVV: </label>
+            <input type="text" id="cvv" name="cvv" placeholder="Enter your CVV" required>
+            <br>
+    
+            <button id="submitBilling" type="button">Submit Payment</button>
+        </form>
+    </div>
+    
+    <div id="confirmationMessage" style="display:none; color: green;">Payment details have been submitted. Thank you!</div>
+    <div id="errorMessage" style="display:none; color: red;">There was an error processing your information. Please try again.</div>
+
+    <footer>
+        <p>&copy; 2024 Nature Social</p>
+    </footer>
+    
+</body>
+</html>
