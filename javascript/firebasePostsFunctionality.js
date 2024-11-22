@@ -108,6 +108,11 @@ document.addEventListener("DOMContentLoaded", () => {
       postMessage.style.display = "block";
       postMessage.textContent = "Post created successfully!";
       document.getElementById("createPostForm").reset();
+
+      // Redirect to feed.html after 2 seconds
+      setTimeout(() => {
+        window.location.href = "feed.html";
+      }, 1000); // Adjust delay if needed
     } catch (error) {
       postMessage.style.color = "red";
       postMessage.style.display = "block";
