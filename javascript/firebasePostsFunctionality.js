@@ -2,18 +2,19 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
 // Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBy9EsQ9Td4ZXbE4WNKTjfCFDjQVpnzjSY",
   authDomain: "hunt-and-gather-87d08.firebaseapp.com",
   projectId: "hunt-and-gather-87d08",
-  storageBucket: "hunt-and-gather-87d08.appspot.com",
+  storageBucket: "hunt-and-gather-87d08.firestorage.app",
   messagingSenderId: "524226195507",
   appId: "1:524226195507:web:abbed7295a1ec89431f346",
   measurementId: "G-CZLRGYD7DZ",
+  databaseURL: "https://hunt-and-gather-87d08-default-rtdb.firebaseio.com/",
 };
 
 // Initialize Firebase
@@ -21,7 +22,17 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getFirestore();
-const storage = getStorage();
+const realtimeDb = getDatabase();
+
+// Function to convert image to base64
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
 
 // Post Creation Function with Image and Location
 async function createPost(title, description, imageFile, location) {
@@ -39,22 +50,25 @@ async function createPost(title, description, imageFile, location) {
     authorEmail: user.email,
     likes: 0,
     comments: [],
-    timestamp: serverTimestamp(), // Corrected modular syntax
-    location: location || "", // Optional location
+    timestamp: serverTimestamp(),
+    location: location || "",
   };
 
-  // Upload image if provided
+  // Convert image to base64 and store it in Realtime Database
+  let imageUrl = '';
   if (imageFile) {
-    const storageRef = ref(storage, `post_images/${Date.now()}_${imageFile.name}`);
     try {
-      // Upload the image to Firebase Storage
-      await uploadBytes(storageRef, imageFile);
-      // Get the image URL
-      const imageURL = await getDownloadURL(storageRef);
-      postData.imageUrl = imageURL; // Add image URL to post data
+      imageUrl = await toBase64(imageFile);
+      // Save image base64 string in Realtime Database
+      const imageId = Date.now(); // Using timestamp as unique image ID
+      const imageRef = ref(realtimeDb, 'images/' + imageId);
+      await set(imageRef, { imageUrl });
+
+      // Store image reference (image ID) in Firestore post data
+      postData.imageId = imageId;
     } catch (error) {
-      console.error("Error uploading image:", error.message);
-      throw error; // Re-throw error for feedback in the UI
+      console.error("Error converting image to base64:", error.message);
+      throw error;
     }
   }
 
@@ -65,7 +79,7 @@ async function createPost(title, description, imageFile, location) {
     console.log("Post created with ID:", postRef.id);
   } catch (error) {
     console.error("Error creating post:", error.message);
-    throw error; // Re-throw error for feedback in the UI
+    throw error;
   }
 }
 

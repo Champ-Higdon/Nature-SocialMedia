@@ -9,7 +9,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyBy9EsQ9Td4ZXbE4WNKTjfCFDjQVpnzjSY",
   authDomain: "hunt-and-gather-87d08.firebaseapp.com",
   projectId: "hunt-and-gather-87d08",
-  storageBucket: "hunt-and-gather-87d08.appspot.com",
+  storageBucket: "hunt-and-gather-87d08.firestorage.app", // Should match your bucket
   messagingSenderId: "524226195507",
   appId: "1:524226195507:web:abbed7295a1ec89431f346",
   measurementId: "G-CZLRGYD7DZ"
