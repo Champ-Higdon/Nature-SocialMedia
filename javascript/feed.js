@@ -1,8 +1,8 @@
 // Import the Firebase modules
 import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getFirestore, collection, query, orderBy, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
 // Firebase configuration
@@ -30,6 +30,25 @@ const auth = getAuth();
 const db = getFirestore();
 const realtimeDb = getDatabase();
 
+// Populate logged-in user info
+const loadUserInfo = async () => {
+  onAuthStateChanged(auth, async (user) => {
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    if (loggedInUserId) {
+      const docRef = doc(db, "users", loggedInUserId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        document.getElementById("loggedUserEmail").innerText = userData.email;
+      } else {
+        console.error("Could not find document matching ID");
+      }
+    } else {
+      console.error("User ID not found in local storage");
+    }
+  });
+};
+
 // Fetch and render posts
 const renderPosts = async () => {
   try {
@@ -39,10 +58,7 @@ const renderPosts = async () => {
     const postsContainer = document.querySelector(".container");
 
     // Clear the container before appending
-    postsContainer.innerHTML = "";
-
-    // Loop through the posts in Firestore
-    for (const doc of querySnapshot.docs) {
+    querySnapshot.docs.forEach(async (doc) => {
       const postData = doc.data();
       const imageId = postData.imageId; // Get the image ID
 
@@ -63,9 +79,10 @@ const renderPosts = async () => {
         <div class="post-details">
             <span class="caption">${postData.title}</span>
             <br>
-            <span class="description">${postData.description || "No description provided"}</span>
-            <br>
             <span class="location">Location: ${postData.location || "Unknown"}</span>
+        </div>
+        <div class="post-details">
+            <span class="description">${postData.description || "No description provided"}</span>
         </div>
         <div class="comments-section">
             <h3>Comments:</h3>
@@ -73,13 +90,14 @@ const renderPosts = async () => {
         </div>
       `;
       postsContainer.appendChild(postElement);
-    }
+    });
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
 };
 
-// Load the posts when the page is ready
+// Load the page
 document.addEventListener("DOMContentLoaded", () => {
+  loadUserInfo();
   renderPosts();
 });
