@@ -181,6 +181,111 @@ form button:hover {
     font-size: 0.9rem;
 }
 
+/* Styles for the search container */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute; /* Position it relative to the page */
+    top: 30%; /* Move it to approximately the top third of the screen */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.7); /* Transparent background with white tint */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-container input {
+    width: 65%;
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    margin-right: 10px; /* Spacing between input and button */
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.search-container input:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.search-container button {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #45a049;
+}
+
+/* Styling for search results */
+#results-container {
+    position: absolute; 
+    top: 40%; 
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    width: 80%; /* Optional: limit the width of the results */
+    padding: 1rem;
+}
+
+#results-container h3 {
+    color: #4CAF50;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#users-results, #posts-results {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-result, .post-result {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin: 1rem 0;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-result p, .post-result p {
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.user-result strong, .post-result strong {
+    font-size: 1.2em;
+    color: #4CAF50;
+}
+
+.post-result {
+    margin-top: 1rem;
+}
+
+.post-result .caption {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+.post-result .location {
+    font-style: italic;
+    color: #666;
+}
+
 /* Footer */
 footer {
     text-align: center;

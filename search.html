@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature Social - Search</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="javascript/firebaseSearch.js"></script>
+</head>
+<body>
+    <div class="background">
+        <!-- Header and Navigation -->
+        <header>Nature Social - Search</header>
+        <nav>
+            <a href="feed.html">Back to Feed</a>
+            <a href="index.html">Switch Account</a>
+        </nav>
+    </div>
+    
+    <!-- Search Container -->
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Search for users or posts..." />
+    <button onclick="search()">Search</button>
+  </div>
+  
+  <!-- Search Results -->
+  <div id="results-container">
+    <h3>Search Results</h3>
+    <div id="users-results"></div>
+    <div id="posts-results"></div>
+  </div>
+  
+      
+    <footer>
+        <p>&copy; 2024 Nature Social</p>
+    </footer>
+
+</body>
+<script>
+    // Function to perform search
+    async function search() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      
+      if (!query) {
+        alert('Please enter a search term');
+        return;
+      }
+  
+      // Clear previous search results
+      document.getElementById('users-results').innerHTML = '';
+      document.getElementById('posts-results').innerHTML = '';
+  
+      try {
+        // 1. Search for users
+        const usersQuery = db.collection('users')
+          .where('email', '>=', query)
+          .where('email', '<=', query + '\uf8ff'); // Firestore search range query
+        const usersSnapshot = await usersQuery.get();
+  
+        if (!usersSnapshot.empty) {
+          const usersContainer = document.getElementById('users-results');
+          usersSnapshot.forEach(doc => {
+            const userData = doc.data();
+            const userDiv = document.createElement('div');
+            userDiv.className = 'user-result';
+            userDiv.innerHTML = `<p><strong>${userData.email}</strong></p>`;
+            usersContainer.appendChild(userDiv);
+          });
+        } else {
+          document.getElementById('users-results').innerHTML = '<p>No users found.</p>';
+        }
+  
+        // 2. Search for posts
+        const postsQuery = db.collection('posts')
+          .where('description', '>=', query)
+          .where('description', '<=', query + '\uf8ff'); // Firestore search range query
+        const postsSnapshot = await postsQuery.get();
+  
+        if (!postsSnapshot.empty) {
+          const postsContainer = document.getElementById('posts-results');
+          postsSnapshot.forEach(doc => {
+            const postData = doc.data();
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post-result';
+            postDiv.innerHTML = `<p><strong>${postData.title}</strong><br/>${postData.description}</p>`;
+            postsContainer.appendChild(postDiv);
+          });
+        } else {
+          document.getElementById('posts-results').innerHTML = '<p>No posts found.</p>';
+        }
+      } catch (error) {
+        console.error('Error searching Firestore:', error);
+        alert('Error searching. Please try again later.');
+      }
+    }
+  </script>  
+
+</html>
