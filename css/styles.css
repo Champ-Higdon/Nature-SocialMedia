@@ -107,12 +107,14 @@ h2 {
 }
 
 .comments-section input {
-    width: 100%;
+    width: calc(100% - 1rem); /* Reduce width to prevent overflow */
     padding: 0.5rem;
     margin-top: 0.5rem;
     border-radius: 4px;
     border: 1px solid #ddd;
+    box-sizing: border-box; /* Ensure padding and borders are included in the width */
 }
+
 
 .sign-in-section {
     display: flex;
