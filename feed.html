@@ -6,6 +6,7 @@
     <title>Nature Social - General Feed</title>
     <link rel="stylesheet" href="css/styles.css">
     <script type="module" src="javascript/homepage.js"></script>
+    <script type="module" src="javascript/feed.js"></script>
 </head>
 <body>
     <div class="background">
@@ -22,31 +23,9 @@
             <h1>Hello <span id="loggedUserEmail"></span></h1>
             <h2>General Feed</h2>
 
-            <div class="post">
-                <img src="https://via.placeholder.com/800x400" alt="Hiking in the woods">
-                <div class="post-details">
-                    <span class="caption">Hiking in the beautiful mountains!</span>
-                    <span class="location">Location: Rocky Mountains, CO</span>
-                </div>
-                <div class="comments-section">
-                    <h3>Comments:</h3>
-                    <input type="text" placeholder="Add a comment...">
-                </div>
-            </div>
-
-            <div class="post">
-                <img src="https://via.placeholder.com/800x400" alt="Fishing by the lake">
-                <div class="post-details">
-                    <span class="caption">Caught a big one today!</span>
-                    <span class="location">Location: Lake Tahoe, NV</span>
-                </div>
-                <div class="comments-section">
-                    <h3>Comments:</h3>
-                    <input type="text" placeholder="Add a comment...">
-                </div>
-            </div>
+            <!-- Post entries will be inserted dynamically here -->
         </div>
-        <!--Gehto way to make a space between the bottom of the screen and bottom of the post boxes-->
+
         <nav><a></a></nav>
         <nav><a></a></nav>
     </div>
@@ -54,6 +33,5 @@
     <footer>
         <p>&copy; 2024 Nature Social</p>
     </footer>
-
 </body>
 </html>
