@@ -51,52 +51,77 @@ const loadUserInfo = async () => {
 
 // Fetch and render posts
 const renderPosts = async () => {
-  try {
-    const postsRef = collection(db, "posts");
-    const postsQuery = query(postsRef, orderBy("timestamp", "desc")); // Order by timestamp in descending order
-    const querySnapshot = await getDocs(postsQuery);
-    const postsContainer = document.querySelector(".container");
-
-    // Clear the container before appending
-    querySnapshot.docs.forEach(async (doc) => {
-      const postData = doc.data();
-      const imageId = postData.imageId; // Get the image ID
-
-      // Fetch the image URL from Realtime Database
-      const imageRef = ref(realtimeDb, "images/" + imageId);
-      const imageSnapshot = await get(imageRef);
-      const imageUrl = imageSnapshot.exists() ? imageSnapshot.val().imageUrl : null;
-
-      // Create the post element
-      const postElement = document.createElement("div");
-      postElement.classList.add("post");
-      postElement.innerHTML = `
-        ${
-          imageUrl
-            ? `<img src="${imageUrl}" alt="Post Image">`
-            : ""
+    try {
+      const postsRef = collection(db, "posts");
+      const postsQuery = query(postsRef, orderBy("timestamp", "desc")); // Order by timestamp in descending order
+      const querySnapshot = await getDocs(postsQuery);
+      const postsContainer = document.querySelector(".container");
+  
+      // Nested renderComments function
+      const renderComments = (comments, commentsContainer) => {
+        commentsContainer.innerHTML = ""; // Clear any existing comments
+  
+        if (comments && comments.length > 0) {
+          comments.forEach((comment) => {
+            const commentElement = document.createElement("div");
+            commentElement.classList.add("comment");
+            commentElement.innerText = comment; // Each comment is a string
+            commentsContainer.appendChild(commentElement);
+          });
+        } else {
+          commentsContainer.innerHTML = "<p>No comments yet</p>";
         }
-        <div class="post-details">
-            <span class="caption">${postData.title}</span>
-            <br>
-            <span class="description">${postData.authorEmail}</span>
-            <br>
-            <span class="location">Location: ${postData.location || "Unknown"}</span>
-        </div>
-        <div class="post-details">
-            <span class="description">${postData.description || "No description provided"}</span>
-        </div>
-        <div class="comments-section">
-            <h3>Comments:</h3>
-            <input type="text" placeholder="Add a comment...">
-        </div>
-      `;
-      postsContainer.appendChild(postElement);
-    });
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-  }
-};
+      };
+  
+      // Clear the container before appending
+      //postsContainer.innerHTML = "";
+      querySnapshot.docs.forEach(async (doc) => {
+        const postData = doc.data();
+        const postId = doc.id; // Get the post ID
+        const imageId = postData.imageId; // Get the image ID
+  
+        // Fetch the image URL from Realtime Database
+        const imageRef = ref(realtimeDb, "images/" + imageId);
+        const imageSnapshot = await get(imageRef);
+        const imageUrl = imageSnapshot.exists() ? imageSnapshot.val().imageUrl : null;
+  
+        // Create the post element
+        const postElement = document.createElement("div");
+        postElement.classList.add("post");
+        postElement.innerHTML = `
+          ${
+            imageUrl
+              ? `<img src="${imageUrl}" alt="Post Image">`
+              : ""
+          }
+          <div class="post-details">
+              <span class="caption">${postData.title}</span>
+              <br>
+              <span class="description">${postData.authorEmail}</span>
+              <br>
+              <span class="location">Location: ${postData.location || "Unknown"}</span>
+          </div>
+          <div class="post-details">
+              <span class="description">${postData.description || "No description provided"}</span>
+          </div>
+          <div class="comments-section">
+              <h3>Comments:</h3>
+              <input type="text" placeholder="Add a comment...">
+              <div class="comments-container"></div>
+          </div>
+        `;
+  
+        // Append post element
+        postsContainer.appendChild(postElement);
+  
+        // Render comments for this post
+        const commentsContainer = postElement.querySelector(".comments-container");
+        renderComments(postData.comments || [], commentsContainer);
+      });
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };  
 
 // Load the page
 document.addEventListener("DOMContentLoaded", () => {

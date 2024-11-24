@@ -111,6 +111,10 @@ h2 {
     margin-top: 1rem;
 }
 
+.comments-container {
+    margin-top: 1rem;
+}
+
 .comments-section input {
     width: calc(100% - 1rem); /* Reduce width to prevent overflow */
     padding: 0.5rem;
