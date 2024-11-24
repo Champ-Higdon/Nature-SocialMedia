@@ -79,6 +79,8 @@ const renderPosts = async () => {
         <div class="post-details">
             <span class="caption">${postData.title}</span>
             <br>
+            <span class="description">${postData.authorEmail}</span>
+            <br>
             <span class="location">Location: ${postData.location || "Unknown"}</span>
         </div>
         <div class="post-details">
