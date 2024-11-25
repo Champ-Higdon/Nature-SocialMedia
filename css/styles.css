@@ -1,4 +1,6 @@
 /* styles.css */
+
+/* Body Styling */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -6,13 +8,9 @@ body {
     background-size: cover;
     background-attachment: fixed;
     color: #333;
-
-    /* background-image:'Images/Background.jpeg';
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; */
 }
 
+/* Header */
 header {
     background-color: #4CAF50;
     color: white;
@@ -22,23 +20,7 @@ header {
     box-shadow: 0 4px 2px -2px gray;
 }
 
-/*button{
-    border-radius: 5px;
-
-}
-
-button:hover{
-    background-color: #4CAF50;
-    color: #FFFFFF;
-    border: none;
-    padding-top: 3px;
-    padding-bottom: 3px;
-}*/
-
-input{
-    border-radius: 5px;
-}
-
+/* Navigation */
 nav {
     display: flex;
     justify-content: flex-end; /* Align links to the right */
@@ -57,151 +39,7 @@ nav a:hover {
     text-decoration: underline; /* Add underline on hover */
 }
 
-
-.container {
-    padding: 2rem;
-    max-width: 1000px;
-    margin: auto;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-}
-
-h2 {
-    text-align: center;
-    color: #4CAF50;
-}
-
-.post {
-    border: 1px solid #ddd;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    padding: 1rem;
-    background-color: white;
-}
-
-.post img {
-    max-width: 100%;
-    max-height: 600px; /* Limit the image height */
-    width: auto; /* Maintain aspect ratio */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px;
-    object-fit: cover; /* Ensures the image fits nicely within the bounds */
-}
-
-
-.post-details {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.5rem;
-}
-
-.caption {
-    font-size: 1.2rem;
-}
-
-.description{
-    font-size: 1rem;
-}
-
-.location {
-    font-style: italic;
-}
-
-.comments-section {
-    margin-top: 1rem;
-}
-
-.comments-container {
-    margin-top: 1rem;
-}
-
-.comments-section input {
-    width: calc(100% - 1rem); /* Reduce width to prevent overflow */
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    box-sizing: border-box; /* Ensure padding and borders are included in the width */
-}
-
-.comment {
-    margin-bottom: 10px; /* Adds spacing between comments */
-  }
-  
-
-
-.sign-in-section {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
-}
-
-.sign-in-section button {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    color: white;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.sign-in-section button:hover {
-    background-color: #45a049;
-}
-
-.background {
-    background-image: url('Images/Background.jpeg');
-    height: 500px;
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-form label {
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-
-form input, form textarea, form button {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-form input:focus, form textarea:focus {
-    border-color: #4CAF50;
-    outline: none;
-}
-
-form button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 0.75rem;
-    font-size: 1rem;
-    border-radius: 4px;
-}
-
-form button:hover {
-    background-color: #45a049;
-}
-
-#postMessage {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-}
-
-/* Styles for the search container */
+/* Search Container */
 .search-container {
     display: flex;
     justify-content: center;
@@ -248,14 +86,17 @@ form button:hover {
     background-color: #45a049;
 }
 
-/* Styling for search results */
+/* Search Results Section (Styled like Feed Posts) */
 #results-container {
-    position: absolute; 
-    top: 40%; 
+    position: absolute;
+    top: 45%; /* Position search results below the search container */
     left: 50%;
     transform: translateX(-50%); /* Center horizontally */
     width: 80%; /* Optional: limit the width of the results */
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #results-container h3 {
@@ -269,17 +110,32 @@ form button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%; /* Take full width */
 }
 
 .user-result, .post-result {
     border: 1px solid #ddd;
     padding: 1rem;
     margin: 1rem 0;
-    width: 90%;
-    max-width: 600px;
+    width: 100%; /* Full width of the container */
+    max-width: 800px; /* Limit width to 800px, similar to the feed posts */
     border-radius: 8px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Formatting the image, caption, and details for posts */
+.post-result img, .user-result img {
+    max-width: 100%;
+    max-height: 600px; /* Limit the image height */
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 1rem;
 }
 
 .user-result p, .post-result p {
@@ -292,10 +148,7 @@ form button:hover {
     color: #4CAF50;
 }
 
-.post-result {
-    margin-top: 1rem;
-}
-
+/* Post-specific styling */
 .post-result .caption {
     font-size: 1.1rem;
     margin-top: 0.5rem;
@@ -304,6 +157,150 @@ form button:hover {
 .post-result .location {
     font-style: italic;
     color: #666;
+}
+
+/* Feed Styling */
+.container {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+}
+
+h2 {
+    text-align: center;
+    color: #4CAF50;
+}
+
+/* Post Feed Styling */
+.post {
+    border: 1px solid #ddd;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: white;
+}
+
+.post img {
+    max-width: 100%;
+    max-height: 600px; /* Limit the image height */
+    width: auto; /* Maintain aspect ratio */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px;
+    object-fit: cover; /* Ensures the image fits nicely within the bounds */
+}
+
+.post-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.caption {
+    font-size: 1.2rem;
+}
+
+.description {
+    font-size: 1rem;
+}
+
+.location {
+    font-style: italic;
+}
+
+.comments-section {
+    margin-top: 1rem;
+}
+
+.comments-container {
+    margin-top: 1rem;
+}
+
+.comments-section input {
+    width: calc(100% - 1rem); /* Reduce width to prevent overflow */
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-sizing: border-box; /* Ensure padding and borders are included in the width */
+}
+
+.comment {
+    margin-bottom: 10px; /* Adds spacing between comments */
+}
+
+.sign-in-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.sign-in-section button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.sign-in-section button:hover {
+    background-color: #45a049;
+}
+
+/* Feed Background */
+.background {
+    background-image: url('Images/Background.jpeg');
+    height: 500px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+form input, form textarea, form button {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form input:focus, form textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+#postMessage {
+    margin-top: 1rem;
+    font-size: 0.9rem;
 }
 
 /* Footer */
