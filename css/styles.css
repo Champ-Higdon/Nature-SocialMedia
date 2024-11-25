@@ -124,6 +124,11 @@ h2 {
     box-sizing: border-box; /* Ensure padding and borders are included in the width */
 }
 
+.comment {
+    margin-bottom: 10px; /* Adds spacing between comments */
+  }
+  
+
 
 .sign-in-section {
     display: flex;
