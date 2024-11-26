@@ -44,12 +44,12 @@ nav a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute; /* Position it relative to the page */
-    top: 30%; /* Move it to approximately the top third of the screen */
+    position: absolute;
+    top: 30%;
     left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
+    transform: translateX(-50%);
     padding: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.7); /* Transparent background with white tint */
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -60,7 +60,7 @@ nav a:hover {
     border-radius: 5px;
     border: 1px solid #ddd;
     font-size: 1rem;
-    margin-right: 10px; /* Spacing between input and button */
+    margin-right: 10px;
     background-color: #fff;
     color: #333;
     transition: border-color 0.3s ease;
@@ -86,13 +86,13 @@ nav a:hover {
     background-color: #45a049;
 }
 
-/* Search Results Section (Styled like Feed Posts) */
+/* Search Results Section */
 #results-container {
     position: absolute;
-    top: 45%; /* Position search results below the search container */
+    top: 45%;
     left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-    width: 80%; /* Optional: limit the width of the results */
+    transform: translateX(-50%);
+    width: 80%;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -105,20 +105,22 @@ nav a:hover {
     font-size: 1.5rem;
 }
 
+/* Users and Posts Results */
 #users-results, #posts-results {
     margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; /* Take full width */
+    width: 100%;
 }
 
+/* Individual Result - User or Post */
 .user-result, .post-result {
     border: 1px solid #ddd;
     padding: 1rem;
     margin: 1rem 0;
-    width: 100%; /* Full width of the container */
-    max-width: 800px; /* Limit width to 800px, similar to the feed posts */
+    width: 100%;
+    max-width: 800px;
     border-radius: 8px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -127,10 +129,10 @@ nav a:hover {
     align-items: flex-start;
 }
 
-/* Formatting the image, caption, and details for posts */
+/* Post-specific Styling */
 .post-result img, .user-result img {
     max-width: 100%;
-    max-height: 600px; /* Limit the image height */
+    max-height: 600px;
     width: auto;
     height: auto;
     border-radius: 8px;
@@ -148,7 +150,6 @@ nav a:hover {
     color: #4CAF50;
 }
 
-/* Post-specific styling */
 .post-result .caption {
     font-size: 1.1rem;
     margin-top: 0.5rem;
@@ -184,11 +185,11 @@ h2 {
 
 .post img {
     max-width: 100%;
-    max-height: 600px; /* Limit the image height */
-    width: auto; /* Maintain aspect ratio */
-    height: auto; /* Maintain aspect ratio */
+    max-height: 600px;
+    width: auto;
+    height: auto;
     border-radius: 8px;
-    object-fit: cover; /* Ensures the image fits nicely within the bounds */
+    object-fit: cover;
 }
 
 .post-details {
@@ -218,16 +219,16 @@ h2 {
 }
 
 .comments-section input {
-    width: calc(100% - 1rem); /* Reduce width to prevent overflow */
+    width: calc(100% - 1rem);
     padding: 0.5rem;
     margin-top: 0.5rem;
     border-radius: 4px;
     border: 1px solid #ddd;
-    box-sizing: border-box; /* Ensure padding and borders are included in the width */
+    box-sizing: border-box;
 }
 
 .comment {
-    margin-bottom: 10px; /* Adds spacing between comments */
+    margin-bottom: 10px;
 }
 
 .sign-in-section {
